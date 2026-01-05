@@ -58,3 +58,4 @@ Astro site for MAG Dressage LLC, a boutique dressage training business in North 
 
 - `resources/mag-business-profile-2026-01-05.md` — Structured business info
 - `resources/maia-interview-transcript-2026-01-05.txt` — Raw interview (transcription has some errors)
+- `TODO.md` — Project tracker (open questions, content needed, progress)
