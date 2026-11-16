@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import homeRidingMobile from '../../resources/assets/IMG-5537.JPG';
 import aboutPortrait from '../../resources/assets/IMG-5539.JPG';
 import homeRiding from '../../resources/assets/IMG-5542.JPG';
 import horseCare from '../../resources/assets/IMG-5544.JPG';
@@ -10,8 +11,9 @@ import indoorArena from '../../resources/assets/IMG-5557.JPG';
 import outdoorArena from '../../resources/assets/IMG-5558.JPG';
 import dressageTraining from '../../resources/assets/IMG-5584.JPG';
 import roundPen from '../../resources/assets/IMG-5590.JPG';
-import waterTreadmill from '../../resources/assets/IMG-5596.JPG';
-import homeRidingMobileCrop from '../assets/photography/home-maia-riding-milena-mobile.jpg';
+import riderCubbies from '../../resources/assets/IMG-5595.JPG';
+import farmPath from '../../resources/assets/IMG-5868.JPG';
+import waterTreadmill from '../../resources/assets/IMG-5869.JPG';
 
 export const photoCredit = 'Bethany P Photography';
 const suppliedPhoto = {
@@ -49,17 +51,17 @@ export const photos = {
     role: 'Proposed desktop Home hero from Maia’s alternative',
     image: homeRiding,
     alt: 'Maia riding her gray mare, Milena, outdoors.',
-    focalPoint: { desktop: '52% 50%', mobile: '52% 50%' },
+    focalPoint: { desktop: '52% 92%', mobile: '52% 92%' },
     mobile: {
       ...suppliedPhoto,
       label: 'Maia riding Milena — mobile hero',
       candidate: 'IMG_5537.jpeg',
-      original: 'IMG-5542.JPG',
-      subject: 'Portrait crop of Maia riding Milena between evergreens',
-      role: 'Interim crop while Maia’s original portrait selection is pending',
-      image: homeRidingMobileCrop,
+      original: 'IMG-5537.JPG',
+      subject: 'Portrait of Maia riding Milena alongside a hedge',
+      role: 'Maia’s selected mobile Home hero',
+      image: homeRidingMobile,
       alt: 'Maia riding her gray mare, Milena, outdoors.',
-      focalPoint: { desktop: '50% 50%', mobile: '50% 50%' },
+      focalPoint: { desktop: '50% 88%', mobile: '50% 88%' },
     },
   },
   'about-maia-with-milena': {
@@ -150,13 +152,13 @@ export const photos = {
   'facility-water-treadmill': {
     ...suppliedPhoto,
     label: 'Water treadmill',
-    candidate: 'IMG_5596(1).jpeg',
-    original: 'IMG-5596.JPG',
+    candidate: 'IMG-5869.JPG',
+    original: 'IMG-5869.JPG',
     subject: 'Equine water treadmill',
     role: 'Facility care feature',
     image: waterTreadmill,
-    alt: 'View down the equine water treadmill toward its far gate.',
-    focalPoint: { desktop: '50% 78%', mobile: '50% 78%' },
+    alt: 'Side view of the equine water treadmill showing its railings and control panel.',
+    focalPoint: { desktop: '50% 58%', mobile: '50% 58%' },
   },
   'facility-viewing-lounge': {
     ...suppliedPhoto,
@@ -177,6 +179,27 @@ export const photos = {
     role: 'Facility rider amenities',
     image: riderLounge,
     alt: 'Saddles line one wall of the rider lounge beside a sofa and coffee table.',
+  },
+  'facility-rider-cubbies': {
+    ...suppliedPhoto,
+    label: 'Rider equipment cubbies',
+    candidate: 'IMG-5595.JPG',
+    original: 'IMG-5595.JPG',
+    subject: 'Rider equipment storage',
+    role: 'Facility rider amenities',
+    image: riderCubbies,
+    alt: 'Wooden cubbies hold riding helmets and tall boots.',
+    focalPoint: { desktop: '50% 60%', mobile: '50% 60%' },
+  },
+  'facility-farm-path': {
+    ...suppliedPhoto,
+    label: 'Comfortside Farm grounds',
+    candidate: 'IMG-5868.JPG',
+    original: 'IMG-5868.JPG',
+    subject: 'Tree-lined path',
+    role: 'Facility closing gallery',
+    image: farmPath,
+    alt: 'A tree-lined path runs beside a fence at Comfortside Farm.',
   },
 } satisfies Record<string, PhotoSlot>;
 

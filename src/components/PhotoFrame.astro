@@ -108,7 +108,9 @@ const mobileFocalPoint = (alternate ? photo.mobile : activeAsset)?.focalPoint?.m
   }
 
   .frame {
+    width: 100%;
     aspect-ratio: var(--ratio);
+    max-height: var(--photo-max-height, none);
     overflow: hidden;
     background: var(--matte);
   }

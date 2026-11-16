@@ -2,7 +2,6 @@
 
 ## Before launch
 
-- [ ] Add Maia's original mobile Home hero selection (`IMG_5537.jpeg`) when supplied. The interim mobile crop uses `IMG-5542.JPG`.
 - [ ] Review the proposed desktop/mobile Home photo pairing and the Comfortside Farm page with Maia.
 - [ ] Review the address presentation on Contact and the supplied Home/About copy and five-page structure.
 - [ ] Verify the custom domain on Cloudflare Pages and enable indexing on the production build when approved for launch.

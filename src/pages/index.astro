@@ -13,36 +13,30 @@ const featured = [
 ---
 
 <SiteLayout page="home">
-  <section class="hero">
-    <div class="shell hero-inner">
-      <div class="hero-copy">
-        <p class="place-label">{location}</p>
-        <h1>MAG <em>Dressage</em></h1>
-        <p class="tagline">
-          <span>Thoughtful Training.</span>
-          <span>Dedicated Horsemanship.</span>
-          <span>Competitive Excellence.</span>
-        </p>
-        <ActionLink href={pages.contact.href}>{inquiryLabel}</ActionLink>
-      </div>
-      <PhotoFrame
-        slotName="home-maia-riding-milena"
-        sizes="(max-width: 688px) 90vw, (max-width: 1351px) 65vw, 900px"
-        ratio="3 / 2"
-        mobileRatio="4 / 5"
-        priority
-      />
-    </div>
-  </section>
+  <div class="hero">
+    <PhotoFrame
+      slotName="home-maia-riding-milena"
+      sizes="100vw"
+      ratio="2 / 1"
+      mobileRatio="1 / 1"
+      priority
+    />
+  </div>
 
   <div class="shell overview">
-    <section class="introduction">
-      <h2>Welcome to<br /> MAG Dressage</h2>
-      <div class="prose">
-        <p>Located in North Salem, New York, MAG Dressage is a boutique dressage training program dedicated to the development of horses and riders.</p>
-        <p>Founded by FEI rider and USDF Silver Medalist Maia Gromadowski, MAG Dressage offers individualized training for developing horses, ambitious amateur riders, and competitive dressage partnerships.</p>
-        <p>With an emphasis on correct fundamentals, thoughtful horsemanship, and continued education, our program provides a supportive yet goal-oriented environment where horses and riders can reach their potential.</p>
-        <p>From daily training and instruction to clinics and competition, MAG Dressage is committed to achieving excellence while enjoying the journey.</p>
+    <section class="introduction" aria-labelledby="home-title">
+      <p class="place-label">{location}</p>
+      <h1 id="home-title">Welcome to<br /> MAG Dressage</h1>
+      <div class="intro-copy">
+        <p class="intro-lead">Located in North Salem, New York, MAG Dressage is a boutique dressage training program dedicated to the development of horses and riders.</p>
+        <div class="prose">
+          <p>Founded by FEI rider and USDF Silver Medalist Maia Gromadowski, MAG Dressage offers individualized training for developing horses, ambitious amateur riders, and competitive dressage partnerships.</p>
+          <p>With an emphasis on correct fundamentals, thoughtful horsemanship, and continued education, our program provides a supportive yet goal-oriented environment where horses and riders can reach their potential.</p>
+          <p>From daily training and instruction to clinics and competition, MAG Dressage is committed to achieving excellence while enjoying the journey.</p>
+        </div>
+      </div>
+      <div class="intro-inquiry">
+        <ActionLink href={pages.contact.href}>{inquiryLabel}</ActionLink>
       </div>
     </section>
 
@@ -51,8 +45,8 @@ const featured = [
         {featured.map(({ page, label, photo, tone }) => (
           <li>
             <PhotoFrame slotName={photo} {tone} sizes="(max-width: 688px) 90vw, (max-width: 1351px) 29vw, 390px" />
-            <a class="feature-label" href={page.href}>
-              <span>{label}</span>
+            <a class="feature-link" href={page.href}>
+              <span class="feature-link-title">{label}</span>
               <span class="feature-arrow" aria-hidden="true">⟶</span>
             </a>
           </li>
@@ -69,59 +63,46 @@ const featured = [
 
 <style>
   .hero {
-    border-bottom: 1px solid var(--rule);
-    background: var(--paper);
-  }
-
-  .hero-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(1rem, 4vw, 4.25rem);
-    padding-block: clamp(1.9rem, 4.4vw, 4rem);
-  }
-
-  .hero-copy {
-    padding-block: 1rem;
-  }
-
-  .hero h1 {
-    margin-block: 0.8rem 1.35rem;
-    font-size: clamp(4.1rem, 9.2vw, 8.4rem);
-    line-height: 0.78;
-  }
-
-  .hero h1 em {
-    display: block;
-    padding-bottom: 0.12em;
-    color: var(--color-brand-red);
-    font-weight: 500;
-  }
-
-  .tagline {
-    margin-bottom: 1.65rem;
-    color: var(--muted);
-    font-size: clamp(1.1rem, 2vw, 1.38rem);
-    line-height: 1.4;
-  }
-
-  .tagline span {
-    display: block;
+    --photo-max-height: max(30vw, 62svh);
   }
 
   .overview {
-    padding-block: var(--section-space);
+    padding-block: clamp(1.5rem, 3.4vw, 3rem) var(--section-space);
   }
 
   .introduction {
     display: grid;
     grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
-    gap: clamp(1rem, 5vw, 5rem);
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+    column-gap: clamp(1rem, 5vw, 5rem);
     padding-bottom: clamp(2.5rem, 5.5vw, 4.5rem);
   }
 
-  .introduction h2 {
-    font-size: clamp(2.8rem, 5vw, 4.65rem);
+  .introduction .place-label {
+    grid-column: 1 / -1;
+    margin-bottom: 0.65rem;
+  }
+
+  .introduction h1 {
+    font-size: clamp(2.375rem, 4.25vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .intro-copy {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+  }
+
+  .intro-lead {
+    max-width: 52ch;
+    margin-bottom: 1.35rem;
+    font-size: 1.1875rem;
+    line-height: 1.45;
+  }
+
+  .intro-inquiry {
+    margin-top: 0.9rem;
   }
 
   .feature-links {
@@ -137,12 +118,12 @@ const featured = [
     position: relative;
   }
 
-  .feature-label:hover {
+  .feature-link:hover > .feature-link-title {
     text-decoration: underline var(--color-brand-red);
     text-underline-offset: 0.2em;
   }
 
-  .feature-label {
+  .feature-link {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -153,49 +134,50 @@ const featured = [
     text-decoration: none;
   }
 
-  .feature-label::before {
+  .feature-link::before {
     position: absolute;
     inset: 0;
     content: '';
   }
 
-  .feature-label:focus-visible {
+  .feature-link:focus-visible {
     outline: none;
   }
 
-  .feature-label:focus-visible::before {
+  .feature-link:focus-visible::before {
     outline: 2px solid var(--focus);
     outline-offset: 4px;
   }
 
   .feature-arrow {
+    display: inline-block;
     color: var(--color-brand-red);
     font: 500 1.2rem/1 var(--sans);
   }
 
   @media (max-width: 43rem) {
-    .hero-inner, .introduction, .feature-links {
-      grid-template-columns: minmax(0, 1fr);
+    .hero {
+      --photo-max-height: max(92vw, 62svh);
     }
 
-    .hero-inner {
-      gap: 1.6rem;
+    .introduction {
+      display: block;
     }
 
-    .hero-copy {
-      padding-block: 0.25rem 0;
+    .introduction .place-label {
+      margin-bottom: 0.85rem;
     }
 
-    .hero h1 {
-      margin-block: 1rem 1rem;
-      font-size: clamp(4rem, 15.5vw, 6.7rem);
+    .introduction h1 {
+      margin-bottom: 0.9rem;
     }
 
-    .tagline {
-      margin-bottom: 1.2rem;
+    .intro-inquiry {
+      margin-top: 1.25rem;
     }
 
     .feature-links {
+      grid-template-columns: minmax(0, 1fr);
       gap: 1.7rem;
     }
   }
