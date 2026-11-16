@@ -1,0 +1,205 @@
+---
+import { getImage } from 'astro:assets';
+import { photos, type Photo, type PhotoAsset, type PhotoSlot } from '../content/photography';
+
+interface Props {
+  slotName: Photo;
+  sizes: string;
+  ratio?: string;
+  mobileRatio?: string;
+  tone?: 'stone' | 'chalk' | 'clay';
+  caption?: string;
+  priority?: boolean;
+}
+
+const {
+  slotName, sizes, ratio = '4 / 3', mobileRatio = ratio, tone = 'stone', caption, priority = false,
+} = Astro.props;
+const photo: PhotoSlot = photos[slotName];
+
+async function prepare(asset?: PhotoAsset) {
+  if (!asset?.image) return;
+
+  if (!asset.alt?.trim()) {
+    throw new Error(`Photo slot "${slotName}" requires descriptive alt text.`);
+  }
+
+  const widths = [384, 640, 960, 1280, 1600, 1920];
+  const formats = ['avif', 'webp', 'jpeg'] as const;
+  const [avif, webp, jpeg] = await Promise.all(
+    formats.map((format) => getImage({ src: asset.image, widths, format })),
+  );
+
+  return { modern: [avif, webp], jpeg, alt: asset.alt, credit: asset.credit };
+}
+
+const [desktop, mobile] = await Promise.all([prepare(photo), prepare(photo.mobile)]);
+const base = desktop ?? mobile;
+const alternate = desktop ? mobile : undefined;
+const activeAsset = desktop || !mobile ? photo : photo.mobile;
+const focalPoint = activeAsset?.focalPoint?.desktop ?? '50% 50%';
+const mobileFocalPoint = (alternate ? photo.mobile : activeAsset)?.focalPoint?.mobile ?? focalPoint;
+---
+
+<figure class:list={['photo', tone]} style={{
+  '--ratio': ratio, '--mobile-ratio': mobileRatio, '--focal': focalPoint, '--mobile-focal': mobileFocalPoint,
+}}>
+  <div class="frame">
+    {base ? (
+      <picture>
+        {alternate && [...alternate.modern, alternate.jpeg].map((image) => (
+          <source
+            media="(max-width: 43rem)"
+            type={`image/${image.options.format}`}
+            srcset={image.srcSet.attribute}
+            {sizes}
+          />
+        ))}
+        {base.modern.map((image) => (
+          <source type={`image/${image.options.format}`} srcset={image.srcSet.attribute} {sizes} />
+        ))}
+        <img
+          src={base.jpeg.src}
+          srcset={base.jpeg.srcSet.attribute}
+          alt={base.alt}
+          width={base.jpeg.attributes.width}
+          height={base.jpeg.attributes.height}
+          {sizes}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchpriority={priority ? 'high' : undefined}
+          decoding="async"
+        />
+      </picture>
+    ) : (
+      <div class="placeholder">
+        <div class="placeholder-label">
+          <span class="placeholder-type">Photo placeholder</span>
+          <span class:list={[{ 'desktop-only': photo.mobile }]}>{photo.label} — {photo.candidate}</span>
+          {photo.mobile && <span class="mobile-only">{photo.mobile.label} — {photo.mobile.candidate}</span>}
+        </div>
+      </div>
+    )}
+  </div>
+  {(caption || base?.credit || alternate?.credit) && (
+    <figcaption>
+      {caption && <span>{caption}</span>}
+      {base?.credit && <small class:list={[{ 'desktop-only': alternate }]}>{base.credit}</small>}
+      {alternate?.credit && <small class="mobile-only">{alternate.credit}</small>}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .photo {
+    min-width: 0;
+    margin: 0;
+    --matte: #eae4dc;
+    --matte-ink: #81766c;
+  }
+
+  .photo.chalk {
+    --matte: #eceae5;
+    --matte-ink: #76736d;
+  }
+
+  .photo.clay {
+    --matte: #ede1de;
+    --matte-ink: #846e69;
+  }
+
+  .frame {
+    aspect-ratio: var(--ratio);
+    overflow: hidden;
+    background: var(--matte);
+  }
+
+  .frame :global(picture),
+  .frame :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .frame :global(img) {
+    object-fit: cover;
+    object-position: var(--focal);
+  }
+
+  .placeholder {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    min-height: 100%;
+    padding: 1.5rem;
+  }
+
+  .placeholder::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: clamp(0.6rem, 2.2vw, 1.5rem);
+    border: 1px solid var(--matte-ink);
+    opacity: 0.3;
+    background:
+      linear-gradient(to top right, transparent calc(50% - 0.5px), var(--matte-ink) 50%, transparent calc(50% + 0.5px)),
+      linear-gradient(to bottom right, transparent calc(50% - 0.5px), var(--matte-ink) 50%, transparent calc(50% + 0.5px));
+  }
+
+  .placeholder-label {
+    max-width: 25ch;
+    padding: 0.5rem 0.8rem;
+    background: var(--matte);
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .placeholder-type {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.6rem;
+    color: var(--muted);
+    font-size: 0.93rem;
+  }
+
+  figcaption > span,
+  figcaption > small {
+    margin-top: 0.65rem;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 43rem) {
+    .frame {
+      aspect-ratio: var(--mobile-ratio);
+    }
+
+    .frame :global(img) {
+      object-position: var(--mobile-focal);
+    }
+
+    .mobile-only {
+      display: inline;
+    }
+
+    .desktop-only {
+      display: none;
+    }
+  }
+</style>

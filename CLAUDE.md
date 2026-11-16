@@ -1,61 +1,24 @@
 # MAG Dressage Website
 
-Astro site for MAG Dressage LLC, a boutique dressage training business in North Salem, NY.
+Static Astro site for MAG Dressage LLC, a boutique dressage training business in North Salem, New York.
 
-## Project Context
+## Website direction
 
-- **Owner**: Maia Gromadowski
-- **Location**: 24 Baxter Road, North Salem, NY 10560
-- **Brand Archetype**: "The Porsche of Dressage" — Luxury, Performance, Elegance, Fun
-- **Target Audience**: Wealthy adult amateurs (40-60), competitive, seeking supportive no-drama community
+- Maia Gromadowski is the founder and head trainer. Keep the focus on patient, productive training for horses and riders, correct fundamentals, continued education, and an enjoyable, supportive atmosphere.
+- The audience includes ambitious amateurs, owners of developing horses, and competitive dressage partnerships. Advertise the full-training program with inquiry-only rates. Use five training sessions per week as the baseline.
+- Keep competition coaching, show riding, clinics, and the water treadmill free of claims about monthly-fee inclusion. Use the evergreen Board & Training page for competition and clinic opportunities.
+- Keep the bio short. It covers Maia's FEI experience, USDF Silver Medal, development of Milena, and continued education with Heather Mason. Preserve the evergreen scope when updating it. The [USDF Silver Medal listing](https://usdf.org/awards/performance/rider.asp?TypePass=SilverMedal&YearPass=Current) referenced in the brief records Maia as rider 226743, dated April 23, 2026.
+- The training program leads. Use the Comfortside Farm copy in `src/content/facility.ts` and highlight the confirmed training, conditioning, and rider amenities. The 20 × 60-meter measurement describes the marked dressage arena inside the larger outdoor.
+- Use the supplied MAG Dressage artwork on white, black (#1a1a1a) for body text, and measured brand red (#ED1B24) for accents. Use Cormorant Garamond for website headings. Keep layouts uncluttered and photo-forward.
+- The primary call to action is **Inquire About Training**. Contact uses a direct email link, with phone, social profiles, and the draft street-address presentation.
 
-## Key Differentiators
+## Pages and source material
 
-1. **True Full Service**: Clients arrive, ride, leave. Staff handles tacking, grooming, laundry, equipment—everything.
-2. **Obsessive Care**: 5-star facility, 5-star staff, generously bedded stalls, premium Lawton Adams footing
-3. **Team Atmosphere**: Supportive community where everyone cheers each other on
-4. **Philosophy**: "Never-ending improvement" — high standards but sympathetic, patient training
-
-## Design Direction
-
-- **Typography**: Cormorant Garamond (elegant, refined serif)
-- **Colors**: Black (#1a1a1a) and crimson (#8B1538) on white
-- **Tone**: Sophisticated, minimal, photo-forward
-- **IMPORTANT**: Maia hates walls of text. Keep copy short and punchy. Lead with visuals.
-
-## Facility Highlights
-
-- 24 acres adjacent to 250-acre North Salem Preserve (trail access)
-- Indoor arena: 60x30 yards, mirrors, fans, LED lights, heated/AC viewing lounge
-- Outdoor arena: ~200x200
-- 22 stalls (12x12 in main barn)
-- 16 large grass paddocks (~1 acre each)
-- Medical paddocks (graded, all-weather for rehab)
-- Heated wash racks, client closet with lockers
-
-## Trainer Credentials
-
-- 2024 Region 8 Reserve Champion, Intermediate 1 Open (horse: "No Limit")
-- US Dressage Finals Reserve Champion, Second Level (horse: "Nadia")
-- Bred and trained "Milena" from foal to Prix St. Georges/I-1
-- Rehab specialist — restored sour/lame horses to competitive health
-- Trains with Heather Mason; alumni of Lars Peterson, Scott Hassler, Pam Goodrich
-
-## Services
-
-1. **Full Training Board** (primary): 5 days/week training, full grooming/tack service
-2. **Lessons**: Ship-ins welcome, travel within ~20 min radius
-3. **Competition Coaching**: Region 8, US Dressage Finals, Florida winter season
-4. **Sales/Sourcing**: Available but not emphasized (connections in Denmark/Netherlands/FL)
-
-## Website Goals
-
-- Primary CTA: Contact form / phone inquiry
-- Secondary: Instagram follow
-- Purpose: Drive high-intent inquiries and validate the brand
-
-## Resources
-
-- `resources/mag-business-profile-2026-01-05.md` — Structured business info
-- `resources/maia-interview-transcript-2026-01-05.txt` — Raw interview (transcription has some errors)
-- `TODO.md` — Project tracker (open questions, content needed, progress)
+- `/` introduces MAG Dressage and its training program.
+- `/about` introduces Maia.
+- `/services` describes Board & Training, care, amenities, and competition and education opportunities.
+- `/facility` describes the spaces that support training and care.
+- `/contact` gives visitors the direct inquiry path.
+- `src/content/photography.ts` records asset slots and the placement, credits, and crop settings of reviewed files. See `README.md` for the replacement workflow.
+- `resources/` contains source artwork, private January 2026 business context, and a historical interview. Use the November 16 implementation brief, addendum, and subsequent decisions for the public website. Keep source artwork and internal documents outside the build.
+- `TODO.md` tracks pending launch inputs.

@@ -1,0 +1,125 @@
+---
+import ActionLink from '../components/ActionLink.astro';
+import { contact, inquiryEmail, inquiryLabel, location, social } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout page="contact">
+  <div class="shell contact-grid">
+    <section class="contact-intro">
+      <p class="place-label">{location}</p>
+      <h1>{inquiryLabel}</h1>
+      <div class="prose">
+        <p>Tell us about your horse, your riding or training goals, and what you are looking for in a full-training program.</p>
+      </div>
+      <ActionLink href={inquiryEmail}>Email MAG Dressage</ActionLink>
+    </section>
+
+    <section class="contact-details" aria-labelledby="details">
+      <h2 id="details">Contact details</h2>
+      <dl>
+        <div>
+          <dt>Email</dt>
+          <dd><a href={inquiryEmail}>{contact.email}</a></dd>
+        </div>
+        <div>
+          <dt>Phone</dt>
+          <dd><a href={contact.telephone}>{contact.phone}</a></dd>
+        </div>
+        {social.map(({ label, name, href }) => (
+          <div>
+            <dt>{label}</dt>
+            <dd><a href={href} aria-label={`${name} on ${label}`}>{name}</a></dd>
+          </div>
+        ))}
+        <div>
+          <dt>Location</dt>
+          <dd>{contact.address[0]}<br />{contact.address[1]}</dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+</SiteLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(1.8rem, 9vw, 8.4rem);
+    padding-block: clamp(3rem, 8vw, 7rem);
+  }
+
+  .contact-intro h1 {
+    max-width: 14ch;
+    margin-block: 0.75rem 1.25rem;
+  }
+
+  .contact-intro .prose {
+    margin-bottom: 1.65rem;
+    font-size: 1.18rem;
+  }
+
+  .contact-details {
+    padding: clamp(1.2rem, 3.2vw, 2.75rem);
+    border-top: 2px solid var(--color-brand-red);
+    background: var(--paper);
+  }
+
+  .contact-details h2 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(2rem, 3.2vw, 3rem);
+  }
+
+  dl, dd {
+    margin: 0;
+  }
+
+  dl > div {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.25rem 0.9rem;
+    padding-block: 0.8rem;
+  }
+
+  dl > div + div {
+    border-top: 1px solid var(--rule);
+  }
+
+  dl > div:last-child {
+    padding-bottom: 0;
+  }
+
+  dt {
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  dd {
+    overflow-wrap: anywhere;
+  }
+
+  dd a:hover {
+    text-decoration-color: var(--color-brand-red);
+    text-decoration-thickness: 2px;
+  }
+
+  @media (max-width: 55rem) and (min-width: 43.001rem) {
+    dl > div {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 43rem) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 23rem) {
+    dl > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

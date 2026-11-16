@@ -1,52 +1,19 @@
-# MAG Dressage Website — TODO
+# MAG Dressage Website
 
-## Open Questions
+## Before launch
 
-- [ ] **Services pricing**: Do we display rates, or keep it inquiry-only?
-- [ ] **Contact method**: Phone number to display? Or just form + email?
-- [ ] **Instagram handle**: Confirm it's @magdressage or similar
-- [ ] **Testimonials**: Does Maia want client quotes? She mentioned clients could "comment on attentive grooms" etc.
-- [ ] **Horse names**: OK to name specific horses (No Limit, Nadia, Milena, Sunny) on the site?
-- [ ] **Competition photos**: Does Maia have rights to show photos, or do we need to get them from photographers?
+- [ ] Add Maia's original mobile Home hero selection (`IMG_5537.jpeg`) when supplied. The interim mobile crop uses `IMG-5542.JPG`.
+- [ ] Review the proposed desktop/mobile Home photo pairing and the Comfortside Farm page with Maia.
+- [ ] Review the address presentation on Contact and the supplied Home/About copy and five-page structure.
+- [ ] Verify the custom domain on Cloudflare Pages and enable indexing on the production build when approved for launch.
 
-## Content Needed
+## Implemented
 
-### Text (can draft now)
-- [ ] Homepage headline + sub-copy
-- [ ] About Maia — short bio (remember: she hates long bios)
-- [ ] Services overview (Full Training, Lessons, Competition Coaching)
-- [ ] Facility highlights (bullet points, not paragraphs)
-- [ ] Philosophy / approach statement
-
-### Media (need from Maia)
-- [ ] Headshot of Maia (professional quality)
-- [ ] Facility photos: indoor arena, outdoor arena, stalls, paddocks, lounge
-- [ ] Action shots: Maia riding, clients riding
-- [ ] Team/community photos: horse show gatherings, holiday party, etc.
-- [ ] Horse photos: No Limit, Nadia, Milena (the success stories)
-- [ ] Logo: already have vector ✓
-
-## Site Structure (Proposed)
-
-```
-/                   — Home (hero, value prop, CTA)
-/about              — Maia's background, philosophy, credentials
-/services           — Full Training, Lessons, Coaching
-/facility           — Photo-heavy facility tour
-/contact            — Form, phone, location, Instagram
-```
-
-## Technical
-
-- [ ] Set up contact form (Netlify Forms? Formspree?)
-- [ ] Instagram embed or link
-- [ ] Google Maps embed for location
-- [ ] SEO meta tags per page
-- [ ] Mobile responsive testing
-
-## Done
-
-- [x] Coming Soon landing page
-- [x] Favicon (grayscale horse)
-- [x] Domain: magdressage.com
-- [x] CLAUDE.md context file
+- [x] Five pages with shared navigation, footer, and training inquiry links.
+- [x] Full training only, with rates by inquiry and distinct sections for care, amenities, and competition and education.
+- [x] Confirmed social and telephone links and direct email inquiries.
+- [x] Supplied logo artwork and measured brand red with dark controls for readable text.
+- [x] Comfortside Farm copy and metadata, with the confirmed marked arena dimensions.
+- [x] Integrate the supplied photography with Astro's native responsive sizing and an alternate Home hero by viewport.
+- [x] Record confirmed website-use rights and add a visible footer credit for Bethany P Photography.
+- [x] Page-specific metadata, sitemap, social sharing image, and preview noindex.

@@ -1,0 +1,54 @@
+---
+import { inquiryLabel, pages } from '../content/site';
+import ActionLink from './ActionLink.astro';
+
+interface Props {
+  heading?: string;
+  text: string;
+}
+
+const { heading, text } = Astro.props;
+---
+
+<section class="inquiry-strip" aria-label={heading ? undefined : 'Training inquiries'}>
+  <div class="shell inquiry-inner">
+    <div>
+      {heading && <h2>{heading}</h2>}
+      <p>{text}</p>
+    </div>
+    <ActionLink href={pages.contact.href}>{inquiryLabel}</ActionLink>
+  </div>
+</section>
+
+<style>
+  .inquiry-strip {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+  }
+
+  .inquiry-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.35rem 2rem;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .inquiry-inner > div {
+    max-width: 42rem;
+  }
+
+  h2 {
+    font-size: clamp(2.15rem, 3.8vw, 3.25rem);
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.125rem;
+  }
+
+  h2 + p {
+    margin-top: 0.6rem;
+  }
+</style>

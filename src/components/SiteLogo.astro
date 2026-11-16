@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/mag-dressage-logo.webp';
+import { siteName } from '../content/site';
+---
+
+<a href="/" class="site-logo">
+  <Image
+    src={logo}
+    width={160}
+    densities={[1, 2]}
+    format="webp"
+    quality="max"
+    alt={siteName}
+    loading="eager"
+  />
+</a>
+
+<style>
+  .site-logo {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  img {
+    display: block;
+    width: var(--logo-width, 7.5rem);
+    height: auto;
+  }
+</style>

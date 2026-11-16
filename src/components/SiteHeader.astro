@@ -1,0 +1,94 @@
+---
+import { pages, type Page } from '../content/site';
+import SiteLogo from './SiteLogo.astro';
+
+interface Props {
+  currentPage: Page;
+}
+
+const { currentPage } = Astro.props;
+---
+
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="shell header-inner">
+    <div class="header-brand"><SiteLogo /></div>
+    <nav aria-label="Main navigation">
+      <ul>
+        {Object.entries(pages).map(([key, page]) => (
+          <li><a href={page.href} aria-current={currentPage === key ? 'page' : undefined}>{page.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem 2rem;
+    padding-block: 0.4rem;
+  }
+
+  .header-brand {
+    display: flex;
+    --logo-width: clamp(7rem, 10vw, 8.25rem);
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    display: grid;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.2rem 0.05rem;
+    font-size: 0.96rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-underline-offset: 0.38em;
+    text-decoration-thickness: 1px;
+    white-space: nowrap;
+  }
+
+  nav a:hover,
+  [aria-current='page'] {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-brand-red);
+    text-decoration-thickness: 2px;
+  }
+
+  @media (max-width: 43rem) {
+    .header-inner {
+      flex-direction: column;
+      gap: 0.15rem;
+      align-items: stretch;
+      padding-block: 0.7rem 0.2rem;
+    }
+
+    .header-brand {
+      --logo-width: 7rem;
+    }
+
+    ul {
+      justify-content: space-between;
+      gap: 0 0.45rem;
+    }
+
+    nav a {
+      font-size: clamp(0.84rem, 2.6vw, 0.96rem);
+    }
+  }
+</style>

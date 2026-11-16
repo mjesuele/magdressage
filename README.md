@@ -1,36 +1,25 @@
 # MAG Dressage
 
-Website for MAG Dressage LLC, a boutique dressage training facility in North Salem, NY.
+Static Astro website for the MAG Dressage full-training program in North Salem, New York. The site origin is [magdressage.com](https://magdressage.com).
 
-**https://magdressage.com**
-
-## Development
+## Local preview
 
 ```sh
-npm install
-npm run dev
+npm ci
+npm run build
+npm run preview
 ```
 
-## Commands
+Open the URL printed by Astro, typically `http://localhost:4321/`. For editing with live reload, use `npm run dev`.
 
-| Command           | Action                                |
-| :---------------- | :------------------------------------ |
-| `npm run dev`     | Start dev server at `localhost:4321`  |
-| `npm run build`   | Build production site to `./dist/`    |
-| `npm run preview` | Preview build locally before deploy   |
+Cloudflare Pages builds the static site with `npm run build` and serves `dist/`. A push to `main` triggers production deployment. Builds default to `noindex`. At launch, set `MAG_SITE_INDEXABLE=true` in the production build environment. Cloudflare preview deployments also carry Cloudflare's platform-level `noindex` header.
 
-## Project Structure
+## Editing
 
-```
-/
-├── public/
-│   └── favicon.svg
-├── resources/          # Business context docs (not deployed)
-├── src/
-│   └── pages/
-│       └── index.astro
-├── CLAUDE.md           # AI assistant context
-└── package.json
-```
+- **Facility copy** lives in `src/content/facility.ts`. Edit headings, introduction paragraphs, and amenity lists there.
+- **Photo slots** are defined in `src/content/photography.ts`. Keep originals in `resources/assets/` and import the selected source as the slot's `image`. Intentional crops, such as the interim mobile Home hero, go in `src/assets/photography/`. Record the original filename, permission, credit, descriptive `alt` text, and focal points for desktop and mobile. A focal point is a CSS position such as `'45% 35%'`. For the Home hero, provide alt text that describes both the primary and alternate sources. Astro generates the responsive AVIF, WebP, and JPEG sizes during the build. Check both crops in the preview. Empty slots display filename-specific placeholders.
+- **Contact links and page metadata** live in `src/content/site.ts`. The inquiry button opens a message to MAG Dressage in the visitor's email app.
+- **Logo and sharing image** use the supplied artwork from `resources/assets/mag-dressage-logo-original.jpg`. Astro resizes the cropped artwork in `src/assets/brand/` for the header and footer. The sharing image is `public/social-preview.jpg` (1200 × 630). Update the dimensions and alt metadata in `src/layouts/SiteLayout.astro` if a replacement calls for it.
+- **Fonts** are the Latin variable WOFF2 files from Fontsource's Cormorant Garamond 5.3.0 and Source Sans 3 5.3.1 packages. The SIL Open Font Licenses are in `public/fonts/`.
 
-Built with [Astro](https://astro.build).
+Historical business context lives in `resources/`. Astro publishes `public/` assets and generated routes from `src/pages/`.

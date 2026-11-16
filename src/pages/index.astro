@@ -1,132 +1,202 @@
 ---
+import ActionLink from '../components/ActionLink.astro';
+import InquiryStrip from '../components/InquiryStrip.astro';
+import PhotoFrame from '../components/PhotoFrame.astro';
+import { inquiryLabel, location, pages } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
 
+const featured = [
+  { page: pages.about, label: 'About Maia', photo: 'about-maia-with-milena', tone: 'clay' },
+  { page: pages.training, label: 'Board & Training', photo: 'training-maia-teaching', tone: 'stone' },
+  { page: pages.facility, label: 'The Facility', photo: 'facility-indoor-arena', tone: 'chalk' },
+] as const;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>MAG Dressage | North Salem, NY</title>
-		<meta name="description" content="MAG Dressage - Classical dressage training in North Salem, New York. Coming soon." />
+<SiteLayout page="home">
+  <section class="hero">
+    <div class="shell hero-inner">
+      <div class="hero-copy">
+        <p class="place-label">{location}</p>
+        <h1>MAG <em>Dressage</em></h1>
+        <p class="tagline">
+          <span>Thoughtful Training.</span>
+          <span>Dedicated Horsemanship.</span>
+          <span>Competitive Excellence.</span>
+        </p>
+        <ActionLink href={pages.contact.href}>{inquiryLabel}</ActionLink>
+      </div>
+      <PhotoFrame
+        slotName="home-maia-riding-milena"
+        sizes="(max-width: 688px) 90vw, (max-width: 1351px) 65vw, 900px"
+        ratio="3 / 2"
+        mobileRatio="4 / 5"
+        priority
+      />
+    </div>
+  </section>
 
-		<!-- Cormorant Garamond - elegant, refined serif -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
-	</head>
-	<body>
-		<main>
-			<h1>MAG Dressage</h1>
-			<p class="location">North Salem, NY</p>
-			<div class="divider" aria-hidden="true"></div>
-			<p class="status">Coming Soon</p>
-		</main>
-	</body>
-</html>
+  <div class="shell overview">
+    <section class="introduction">
+      <h2>Welcome to<br /> MAG Dressage</h2>
+      <div class="prose">
+        <p>Located in North Salem, New York, MAG Dressage is a boutique dressage training program dedicated to the development of horses and riders.</p>
+        <p>Founded by FEI rider and USDF Silver Medalist Maia Gromadowski, MAG Dressage offers individualized training for developing horses, ambitious amateur riders, and competitive dressage partnerships.</p>
+        <p>With an emphasis on correct fundamentals, thoughtful horsemanship, and continued education, our program provides a supportive yet goal-oriented environment where horses and riders can reach their potential.</p>
+        <p>From daily training and instruction to clinics and competition, MAG Dressage is committed to achieving excellence while enjoying the journey.</p>
+      </div>
+    </section>
+
+    <nav aria-label="Explore MAG Dressage">
+      <ul class="feature-links">
+        {featured.map(({ page, label, photo, tone }) => (
+          <li>
+            <PhotoFrame slotName={photo} {tone} sizes="(max-width: 688px) 90vw, (max-width: 1351px) 29vw, 390px" />
+            <a class="feature-label" href={page.href}>
+              <span>{label}</span>
+              <span class="feature-arrow" aria-hidden="true">⟶</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <InquiryStrip
+    heading="Interested in joining our full-training program?"
+    text="Tell us about your horse and your goals."
+  />
+</SiteLayout>
 
 <style>
-	:root {
-		--color-black: #1a1a1a;
-		--color-white: #ffffff;
-		--color-crimson: #8B1538;
-		--font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-	}
+  .hero {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
 
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
+  .hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1rem, 4vw, 4.25rem);
+    padding-block: clamp(1.9rem, 4.4vw, 4rem);
+  }
 
-	html {
-		font-size: 16px;
-	}
+  .hero-copy {
+    padding-block: 1rem;
+  }
 
-	body {
-		font-family: var(--font-serif);
-		background-color: var(--color-white);
-		color: var(--color-black);
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-	}
+  .hero h1 {
+    margin-block: 0.8rem 1.35rem;
+    font-size: clamp(4.1rem, 9.2vw, 8.4rem);
+    line-height: 0.78;
+  }
 
-	main {
-		text-align: center;
-		padding: 2rem;
-		animation: fadeIn 1.2s ease-out;
-	}
+  .hero h1 em {
+    display: block;
+    padding-bottom: 0.12em;
+    color: var(--color-brand-red);
+    font-weight: 500;
+  }
 
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-			transform: translateY(8px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
+  .tagline {
+    margin-bottom: 1.65rem;
+    color: var(--muted);
+    font-size: clamp(1.1rem, 2vw, 1.38rem);
+    line-height: 1.4;
+  }
 
-	h1 {
-		font-size: clamp(2.5rem, 8vw, 4.5rem);
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		margin-bottom: 1.25rem;
-		line-height: 1.1;
-	}
+  .tagline span {
+    display: block;
+  }
 
-	.location {
-		font-size: clamp(1rem, 2.5vw, 1.2rem);
-		font-weight: 700;
-		letter-spacing: 0.15em;
-		text-transform: uppercase;
-		color: var(--color-black);
-		margin-bottom: 1rem;
-		animation: fadeIn 1s ease-out 0.3s both;
-	}
+  .overview {
+    padding-block: var(--section-space);
+  }
 
-	.divider {
-		width: 2.5rem;
-		height: 1px;
-		background-color: var(--color-crimson);
-		margin: 0 auto 1rem;
-		animation: expandLine 0.8s ease-out 0.5s both;
-	}
+  .introduction {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+    gap: clamp(1rem, 5vw, 5rem);
+    padding-bottom: clamp(2.5rem, 5.5vw, 4.5rem);
+  }
 
-	@keyframes expandLine {
-		from {
-			width: 0;
-			opacity: 0;
-		}
-		to {
-			width: 2.5rem;
-			opacity: 1;
-		}
-	}
+  .introduction h2 {
+    font-size: clamp(2.8rem, 5vw, 4.65rem);
+  }
 
-	.status {
-		font-size: clamp(0.95rem, 2vw, 1.1rem);
-		font-weight: 700;
-		letter-spacing: 0.18em;
-		text-transform: uppercase;
-		color: #222;
-		animation: fadeIn 1s ease-out 0.7s both;
-	}
+  .feature-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.05rem, 2.2vw, 1.8rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
-	/* Subtle hover effect on heading */
-	h1 {
-		transition: letter-spacing 0.4s ease;
-	}
+  .feature-links li {
+    position: relative;
+  }
 
-	h1:hover {
-		letter-spacing: 0.12em;
-	}
+  .feature-label:hover {
+    text-decoration: underline var(--color-brand-red);
+    text-underline-offset: 0.2em;
+  }
 
+  .feature-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding-block: 0.8rem 0.65rem;
+    border-bottom: 1px solid var(--rule);
+    font: 600 clamp(1.65rem, 2.7vw, 2.25rem)/1.05 var(--serif);
+    text-decoration: none;
+  }
+
+  .feature-label::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+  }
+
+  .feature-label:focus-visible {
+    outline: none;
+  }
+
+  .feature-label:focus-visible::before {
+    outline: 2px solid var(--focus);
+    outline-offset: 4px;
+  }
+
+  .feature-arrow {
+    color: var(--color-brand-red);
+    font: 500 1.2rem/1 var(--sans);
+  }
+
+  @media (max-width: 43rem) {
+    .hero-inner, .introduction, .feature-links {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hero-inner {
+      gap: 1.6rem;
+    }
+
+    .hero-copy {
+      padding-block: 0.25rem 0;
+    }
+
+    .hero h1 {
+      margin-block: 1rem 1rem;
+      font-size: clamp(4rem, 15.5vw, 6.7rem);
+    }
+
+    .tagline {
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-links {
+      gap: 1.7rem;
+    }
+  }
 </style>

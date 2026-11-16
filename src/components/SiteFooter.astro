@@ -1,0 +1,75 @@
+---
+import { location, pages, social } from '../content/site';
+import { photoCredit } from '../content/photography';
+import SiteLogo from './SiteLogo.astro';
+---
+
+<footer class="site-footer">
+  <div class="shell footer-inner">
+    <div class="footer-brand">
+      <SiteLogo />
+      <div>
+        <p>{location}</p>
+        <p class="photo-credit">Photography by {photoCredit}</p>
+      </div>
+    </div>
+    <ul aria-label="Contact and social links">
+      <li><a href={pages.contact.href}>Contact</a></li>
+      {social.map(({ label, href }) => <li><a href={href}>{label}</a></li>)}
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: var(--white);
+    --focus: #fff;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.35rem 2.5rem;
+    padding-block: 2.5rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    --logo-width: 6.25rem;
+  }
+
+  p {
+    color: #e1dad7;
+  }
+
+  .photo-credit {
+    margin-top: 0.22rem;
+    font-size: 0.875rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li a {
+    display: inline-grid;
+    align-items: center;
+    min-height: 2.75rem;
+    font-weight: 600;
+    text-decoration-color: #b5afac;
+  }
+
+  li a:hover {
+    text-decoration-color: var(--white);
+  }
+</style>

@@ -1,0 +1,157 @@
+---
+import ActionLink from '../components/ActionLink.astro';
+import InquiryStrip from '../components/InquiryStrip.astro';
+import PhotoFrame from '../components/PhotoFrame.astro';
+import { pages } from '../content/site';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const care = [
+  'Five training sessions per week',
+  'Comprehensive daily horse care and management',
+  'Daily turnout',
+  'Daily grooming, tack-up, and untacking services',
+  'Resident staff living on the property',
+];
+
+const amenities = [
+  'Indoor and outdoor riding arenas',
+  'Oversized round pen',
+  'Access to Baxter Preserve riding trails',
+  'Equine water treadmill',
+  'Medical paddock access',
+  'Rider lounge and tack facilities',
+];
+
+const education = [
+  'Professional competition preparation and show riding',
+  'Coaching and support at competitions',
+  'Individualized instruction for horse owners and riders',
+  'Opportunities to participate in clinics with visiting professionals',
+];
+---
+
+<SiteLayout page="training">
+  <div class="shell">
+    <header class="page-heading">
+      <h1>Board &amp; Training</h1>
+    </header>
+    <div class="program-intro">
+      <div class="prose">
+        <p>MAG Dressage offers a comprehensive full-training program for developing horses, ambitious amateur riders, and competitive dressage partnerships.</p>
+        <p>Each horse benefits from individualized training, attentive daily management, and a consistent approach to long-term development. Our program is designed for owners who value quality horsemanship, continued education, and a supportive, goal-oriented training environment.</p>
+      </div>
+      <PhotoFrame
+        slotName="training-maia-teaching"
+        sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px"
+        ratio="16 / 10"
+        mobileRatio="4 / 3"
+        priority
+      />
+    </div>
+  </div>
+
+  <section class="program-core">
+    <div class="shell core-inner">
+      <h2>Full Training &amp; Horse Care</h2>
+      <ul>{care.map((item) => <li>{item}</li>)}</ul>
+      <div class="program-photos">
+        <PhotoFrame slotName="training-dressage" sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px" ratio="3 / 2" />
+        <PhotoFrame slotName="training-horsemanship" sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px" ratio="3 / 2" tone="clay" />
+      </div>
+    </div>
+  </section>
+
+  <div class="shell opportunities">
+    <section>
+      <h2>Training Facilities &amp; Amenities</h2>
+      <ul>{amenities.map((item) => <li>{item}</li>)}</ul>
+      <ActionLink href={pages.facility.href} variant="text">Explore the Facility</ActionLink>
+    </section>
+    <section>
+      <h2>Competition &amp; Continued Education</h2>
+      <ul>{education.map((item) => <li>{item}</li>)}</ul>
+    </section>
+  </div>
+
+  <InquiryStrip text="For training availability, program details, and current rates, please contact MAG Dressage directly." />
+</SiteLayout>
+
+<style>
+  .program-intro,
+  .core-inner,
+  .opportunities,
+  .program-photos {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.35rem, 5vw, 5rem);
+  }
+
+  .program-intro {
+    align-items: center;
+    padding-bottom: clamp(2.65rem, 6vw, 5rem);
+  }
+
+  .program-intro p:first-child {
+    color: var(--ink);
+    font-size: clamp(1.15rem, 2.1vw, 1.45rem);
+    line-height: 1.4;
+  }
+
+  .program-core {
+    padding-block: clamp(2.45rem, 5vw, 4.35rem);
+    border-block: 1px solid var(--rule);
+    background: var(--paper);
+  }
+
+  .core-inner h2 {
+    max-width: 14ch;
+  }
+
+  .program-photos {
+    grid-column: 1 / -1;
+    gap: clamp(1rem, 2.2vw, 1.85rem);
+  }
+
+  .opportunities {
+    padding-block: var(--section-space);
+  }
+
+  .opportunities section {
+    padding-top: 1.15rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .opportunities h2 {
+    max-width: 17ch;
+    margin-bottom: 1.05rem;
+    font-size: clamp(2.15rem, 3.7vw, 3.4rem);
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.2em;
+    color: var(--muted);
+  }
+
+  li::marker {
+    color: var(--color-brand-red);
+  }
+
+  li + li {
+    margin-top: 0.44rem;
+  }
+
+  .opportunities ul {
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 43rem) {
+    .program-intro, .core-inner, .opportunities, .program-photos {
+      grid-template-columns: 1fr;
+    }
+
+    .opportunities {
+      gap: 1.85rem;
+    }
+  }
+</style>

@@ -1,0 +1,139 @@
+---
+import InquiryStrip from '../components/InquiryStrip.astro';
+import PhotoFrame from '../components/PhotoFrame.astro';
+import { facility } from '../content/facility';
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout page="facility">
+  <div class="shell">
+    <header class="page-heading">
+      <h1>{facility.title}</h1>
+      <p class="subtitle">{facility.subtitle}</p>
+    </header>
+
+    <PhotoFrame
+      slotName="facility-indoor-arena"
+      sizes="(max-width: 1351px) 90vw, 1216px"
+      ratio="2 / 1"
+      mobileRatio="4 / 3"
+      tone="chalk"
+      priority
+    />
+
+    <div class="facility-intro">
+      <div class="prose">{facility.intro.map((paragraph) => <p>{paragraph}</p>)}</div>
+      <PhotoFrame
+        slotName="facility-barn-exterior"
+        sizes="(max-width: 688px) 90vw, (max-width: 1351px) 34vw, 465px"
+        ratio="3 / 2"
+        tone="clay"
+      />
+    </div>
+
+    <section class="training">
+      <div class="section-copy">
+        <h2>{facility.training.title}</h2>
+        <ul>{facility.training.items.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div class="gallery pair">
+        <PhotoFrame slotName="facility-outdoor-arena" sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px" ratio="3 / 2" />
+        <PhotoFrame slotName="facility-round-pen" sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px" ratio="3 / 2" tone="chalk" />
+      </div>
+    </section>
+  </div>
+
+  <section class="care">
+    <div class="shell care-inner">
+      <div class="section-copy">
+        <h2>{facility.care.title}</h2>
+        <ul>{facility.care.items.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <PhotoFrame
+        slotName="facility-water-treadmill"
+        sizes="(max-width: 688px) 90vw, (max-width: 1351px) 48vw, 650px"
+        ratio="1 / 1"
+        mobileRatio="4 / 5"
+        tone="clay"
+        caption="Equine water treadmill"
+      />
+    </div>
+  </section>
+
+  <section class="shell riders">
+    <div class="section-copy">
+      <h2>{facility.riders.title}</h2>
+      <ul>{facility.riders.items.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div class="gallery pair">
+      <PhotoFrame slotName="facility-viewing-lounge" sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px" ratio="3 / 2" tone="chalk" />
+      <PhotoFrame slotName="facility-rider-lounge" sizes="(max-width: 688px) 90vw, (max-width: 1351px) 44vw, 600px" ratio="3 / 2" />
+    </div>
+  </section>
+
+  <InquiryStrip text="Tell us about your horse and your goals." />
+</SiteLayout>
+
+<style>
+  .training,
+  .riders {
+    padding-block: var(--section-space);
+  }
+
+  .facility-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 5rem);
+    padding-block: clamp(2rem, 5vw, 4.5rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .facility-intro .prose {
+    max-width: 64ch;
+    font-size: clamp(1.0625rem, 1.7vw, 1.2rem);
+  }
+
+  .section-copy ul {
+    margin: 1rem 0 0;
+    padding-left: 1.2em;
+    color: var(--muted);
+  }
+
+  li + li {
+    margin-top: 0.42rem;
+  }
+
+  li::marker {
+    color: var(--color-brand-red);
+  }
+
+  .gallery {
+    display: grid;
+    gap: clamp(1rem, 2.2vw, 1.85rem);
+    margin-top: clamp(1.4rem, 3.5vw, 2.5rem);
+  }
+
+  .pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .care {
+    border-block: 1px solid var(--rule);
+    background: var(--paper);
+  }
+
+  .care-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(1.4rem, 5vw, 5rem);
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  @media (max-width: 43rem) {
+    .facility-intro, .gallery, .care-inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
