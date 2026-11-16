@@ -46,30 +46,38 @@ const mobileFocalPoint = (alternate ? photo.mobile : activeAsset)?.focalPoint?.m
 }}>
   <div class="frame">
     {base ? (
-      <picture>
-        {alternate && [...alternate.modern, alternate.jpeg].map((image) => (
-          <source
-            media="(max-width: 43rem)"
-            type={`image/${image.options.format}`}
-            srcset={image.srcSet.attribute}
+      <a
+        class="photo-link"
+        href={base.jpeg.src}
+        aria-label={`View full-size photo: ${base.alt}`}
+        data-photo-link
+        data-mobile-image={alternate?.jpeg.src}
+      >
+        <picture>
+          {alternate && [...alternate.modern, alternate.jpeg].map((image) => (
+            <source
+              media="(max-width: 43rem)"
+              type={`image/${image.options.format}`}
+              srcset={image.srcSet.attribute}
+              {sizes}
+            />
+          ))}
+          {base.modern.map((image) => (
+            <source type={`image/${image.options.format}`} srcset={image.srcSet.attribute} {sizes} />
+          ))}
+          <img
+            src={base.jpeg.src}
+            srcset={base.jpeg.srcSet.attribute}
+            alt={base.alt}
+            width={base.jpeg.attributes.width}
+            height={base.jpeg.attributes.height}
             {sizes}
+            loading={priority ? 'eager' : 'lazy'}
+            fetchpriority={priority ? 'high' : undefined}
+            decoding="async"
           />
-        ))}
-        {base.modern.map((image) => (
-          <source type={`image/${image.options.format}`} srcset={image.srcSet.attribute} {sizes} />
-        ))}
-        <img
-          src={base.jpeg.src}
-          srcset={base.jpeg.srcSet.attribute}
-          alt={base.alt}
-          width={base.jpeg.attributes.width}
-          height={base.jpeg.attributes.height}
-          {sizes}
-          loading={priority ? 'eager' : 'lazy'}
-          fetchpriority={priority ? 'high' : undefined}
-          decoding="async"
-        />
-      </picture>
+        </picture>
+      </a>
     ) : (
       <div class="placeholder">
         <div class="placeholder-label">
@@ -115,11 +123,22 @@ const mobileFocalPoint = (alternate ? photo.mobile : activeAsset)?.focalPoint?.m
     background: var(--matte);
   }
 
+  .photo-link,
   .frame :global(picture),
   .frame :global(img) {
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  .photo-link {
+    cursor: zoom-in;
+  }
+
+  .photo-link:focus-visible {
+    position: relative;
+    outline: 2px solid var(--white);
+    outline-offset: -4px;
   }
 
   .frame :global(img) {

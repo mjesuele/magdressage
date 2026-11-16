@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/brand/mag-dressage-logo.webp';
-import logoOnDark from '../assets/brand/mag-dressage-logo-on-dark.svg?url';
+import logoOnDark from '../assets/brand/mag-dressage-logo-on-dark.webp';
 import { siteName } from '../content/site';
 
 interface Props {
@@ -12,19 +12,15 @@ const { onDark = false } = Astro.props;
 ---
 
 <a href="/" class="site-logo">
-  {onDark ? (
-    <img src={logoOnDark} width="1034" height="840" alt={siteName} />
-  ) : (
-    <Image
-      src={logo}
-      width={160}
-      densities={[1, 2]}
-      format="webp"
-      quality="max"
-      alt={siteName}
-      loading="eager"
-    />
-  )}
+  <Image
+    src={onDark ? logoOnDark : logo}
+    width={160}
+    densities={[1, 2]}
+    format="webp"
+    quality="max"
+    alt={siteName}
+    loading="eager"
+  />
 </a>
 
 <style>

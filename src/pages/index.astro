@@ -114,10 +114,6 @@ const featured = [
     list-style: none;
   }
 
-  .feature-links li {
-    position: relative;
-  }
-
   .feature-link:hover > .feature-link-title {
     text-decoration: underline var(--color-brand-red);
     text-underline-offset: 0.2em;
@@ -132,21 +128,6 @@ const featured = [
     border-bottom: 1px solid var(--rule);
     font: 600 clamp(1.65rem, 2.7vw, 2.25rem)/1.05 var(--serif);
     text-decoration: none;
-  }
-
-  .feature-link::before {
-    position: absolute;
-    inset: 0;
-    content: '';
-  }
-
-  .feature-link:focus-visible {
-    outline: none;
-  }
-
-  .feature-link:focus-visible::before {
-    outline: 2px solid var(--focus);
-    outline-offset: 4px;
   }
 
   .feature-arrow {

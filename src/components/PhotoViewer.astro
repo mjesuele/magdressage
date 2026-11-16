@@ -1,0 +1,111 @@
+<dialog class="photo-viewer" aria-label="Full-size photo" data-photo-viewer>
+  <div class="photo-viewer-controls">
+    <a target="_blank" rel="noopener">Open image in a new tab</a>
+    <form method="dialog">
+      <button type="submit" autofocus>Close</button>
+    </form>
+  </div>
+  <div class="photo-viewer-image"></div>
+</dialog>
+
+<script>
+  const viewer = document.querySelector<HTMLDialogElement>('[data-photo-viewer]');
+  const imageContainer = viewer?.querySelector('.photo-viewer-image');
+  const fullSizeLink = viewer?.querySelector<HTMLAnchorElement>('a');
+  let opener: HTMLAnchorElement | null = null;
+
+  if (viewer?.showModal && imageContainer && fullSizeLink) {
+    document.addEventListener('click', (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey
+        || event.shiftKey || event.altKey || !(event.target instanceof Element)) return;
+
+      const photoLink = event.target.closest<HTMLAnchorElement>('[data-photo-link]');
+      if (!photoLink) return;
+
+      const mobileImage = photoLink.dataset.mobileImage;
+      const mobileMedia = photoLink.querySelector<HTMLSourceElement>('source[media]')?.media;
+      const fullSize = mobileImage && mobileMedia && matchMedia(mobileMedia).matches
+        ? mobileImage
+        : photoLink.href;
+      const image = new Image();
+      image.alt = photoLink.querySelector('img')?.alt ?? '';
+      image.src = fullSize;
+      imageContainer.replaceChildren(image);
+      fullSizeLink.href = fullSize;
+
+      viewer.showModal();
+      opener = photoLink;
+      event.preventDefault();
+    });
+
+    viewer.addEventListener('click', (event) => {
+      if (event.target === viewer) viewer.close();
+    });
+
+    viewer.addEventListener('close', () => {
+      imageContainer.replaceChildren();
+      opener?.focus({ preventScroll: true });
+      opener = null;
+    });
+  }
+</script>
+
+<style>
+  .photo-viewer {
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+    border: 0;
+    padding: 0;
+    background: var(--ink);
+    color: var(--white);
+    --focus: var(--white);
+  }
+
+  .photo-viewer::backdrop {
+    background: rgb(0 0 0 / 78%);
+  }
+
+  .photo-viewer-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    padding-inline: 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  .photo-viewer-controls a,
+  .photo-viewer-controls button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3rem;
+  }
+
+  .photo-viewer-controls button {
+    color: inherit;
+    font: inherit;
+    background: transparent;
+    padding: 0 0.4rem;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .photo-viewer-controls button:hover {
+    text-decoration: underline;
+  }
+
+  .photo-viewer-image :global(img) {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100dvh - 5rem);
+    width: auto;
+    height: auto;
+    margin-inline: auto;
+    object-fit: contain;
+  }
+
+  :global(body:has(dialog[data-photo-viewer][open])) {
+    overflow: hidden;
+  }
+</style>
