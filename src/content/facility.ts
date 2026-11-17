@@ -21,6 +21,7 @@ export const facility = {
     title: 'Horse Care & Conditioning',
     items: [
       'Full-service stabling and daily turnout',
+      '16 oversized grass paddocks',
       'Equine water treadmill',
       'Medical turnout paddocks',
       'Staff residing on the property',
