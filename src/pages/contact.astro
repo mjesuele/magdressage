@@ -1,6 +1,6 @@
 ---
 import ActionLink from '../components/ActionLink.astro';
-import { contact, inquiryEmail, inquiryLabel, location, social } from '../content/site';
+import { contact, directionsUrl, inquiryEmail, inquiryLabel, location, social } from '../content/site';
 import SiteLayout from '../layouts/SiteLayout.astro';
 ---
 
@@ -34,7 +34,11 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         ))}
         <div>
           <dt>Location</dt>
-          <dd>{contact.address[0]}<br />{contact.address[1]}</dd>
+          <dd>
+            {contact.address[0]}<br />{contact.address[1]}
+            <p class="drive-time">1 hour from NYC</p>
+            <a href={directionsUrl}>Get directions to Comfortside Farm</a>
+          </dd>
         </div>
       </dl>
     </section>
@@ -98,6 +102,11 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
   dd {
     overflow-wrap: anywhere;
+  }
+
+  .drive-time {
+    margin-block: 0.65rem 0.35rem;
+    color: var(--muted);
   }
 
   dd a:hover {

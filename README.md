@@ -12,7 +12,7 @@ npm run preview
 
 Open the URL printed by Astro, typically `http://localhost:4321/`. For editing with live reload, use `npm run dev`.
 
-Cloudflare Pages builds the static site with `npm run build` and serves `dist/`. A push to `main` triggers production deployment. Builds default to `noindex`. At launch, set `MAG_SITE_INDEXABLE=true` in the production build environment. Cloudflare preview deployments also carry Cloudflare's platform-level `noindex` header.
+Cloudflare Pages builds the static site with `npm run build` and serves `dist/`. A push to `main` triggers production deployment, which allows search indexing by default. Set `MAG_SITE_INDEXABLE=false` in the production build environment to opt out. Local builds default to `noindex` and can opt in with `MAG_SITE_INDEXABLE=true`. Cloudflare branch previews always emit `noindex`.
 
 ## Editing
 

@@ -6,8 +6,8 @@ export const pages = {
   home: {
     href: '/',
     label: 'Home',
-    title: 'MAG Dressage — Dressage Training in North Salem, NY',
-    description: 'Boutique dressage training in North Salem, New York, for developing horses, ambitious amateurs, and competitive partnerships.',
+    title: 'Dressage Training in Westchester County, NY | MAG Dressage',
+    description: 'Boutique dressage training in North Salem, Westchester County, NY, for developing horses, ambitious amateurs, and competitive partnerships.',
   },
   about: {
     href: '/about',
@@ -45,6 +45,7 @@ export const contact = {
 } as const;
 
 export const inquiryEmail = `mailto:${contact.email}?subject=Full-training%20inquiry`;
+export const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(contact.address.join(', '))}&travelmode=driving`;
 
 export const social = [
   { label: 'Instagram', name: '@maiaanagromadowski', href: 'https://www.instagram.com/maiaanagromadowski/' },

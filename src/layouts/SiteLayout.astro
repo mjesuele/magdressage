@@ -13,8 +13,11 @@ const { page } = Astro.props;
 const { title, description, href } = pages[page];
 const canonical = new URL(href, Astro.site);
 const socialImage = new URL('/social-preview.jpg', Astro.site);
-const isIndexable = import.meta.env.PROD && process.env.MAG_SITE_INDEXABLE === 'true'
-  && (!process.env.CF_PAGES || process.env.CF_PAGES_BRANCH === 'main');
+const { CF_PAGES, CF_PAGES_BRANCH, MAG_SITE_INDEXABLE } = process.env;
+const isProductionPagesBuild = CF_PAGES === '1' && CF_PAGES_BRANCH === 'main';
+const indexingEnabled = MAG_SITE_INDEXABLE ?? (isProductionPagesBuild ? 'true' : 'false');
+const isIndexable = import.meta.env.PROD && indexingEnabled === 'true'
+  && (!CF_PAGES || isProductionPagesBuild);
 ---
 
 <!doctype html>

@@ -1,6 +1,6 @@
 export const facility = {
   title: 'The Facility',
-  subtitle: 'Comfortside Farm | North Salem, New York',
+  subtitle: 'Comfortside Farm · North Salem, Westchester County, NY',
   intro: [
     'Nestled in the picturesque countryside of North Salem, New York, MAG Dressage is based at Comfortside Farm, a beautiful equestrian property offering an exceptional environment for the training and care of dressage horses.',
     'With thoughtfully maintained training facilities, specialized conditioning amenities, and a welcoming atmosphere, the farm provides an ideal setting for horses and riders to develop and thrive.',
